@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "tarjetacredito-3240f": {
+      "hosting": {
+        "TarjetaCredito": [
+          "tarjetacredito-3240f"
+        ]
+      }
+    }
+  }
+}
