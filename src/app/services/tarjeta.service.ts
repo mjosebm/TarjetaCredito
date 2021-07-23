@@ -1,15 +1,42 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { Observable, Subject } from 'rxjs';
 import { TarjetaCredito } from '../models/TarjetaCredito';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TarjetaService {
+  private tarjeta$ = new Subject<any>();
 
-  constructor(private firebase: AngularFirestore) { }
+  constructor(private firestore: AngularFirestore) { }
 
   guardarTarjeta(tarjeta: TarjetaCredito) : Promise<any> {
-    return this.firebase.collection('tarjetas').add(tarjeta);
+    return this.firestore.collection('tarjetas').add(tarjeta);
   }
+
+  obtenerTarjetas() : Observable<any> {
+    return this.firestore.collection('tarjetas',ref => ref.orderBy('fechaCreacion', 'desc')).snapshotChanges();
+  }
+
+  eliminarTarjeta(id:string) : Promise<any> {
+   return this.firestore.collection('tarjetas').doc(id).delete();
+  }
+
+  actualizarTarjeta(id:string, tarjeta: any) : Promise<any> {
+   return this.firestore.collection('tarjetas').doc(id).update(tarjeta);
+  }
+
+
+  //Todos los que se suscriban a este tarjeta$ van a recibir la tarjeta que se envió en este addTarjetaEdit
+  addTarjetaEdit(tarjeta: TarjetaCredito){
+    this.tarjeta$.next(tarjeta); //Con el .next() emitimos el objeto para que los que estén suscritos a él reciban la información
+  }
+
+  //A través de este método getTarjetaEdit se recibe el objeto tarjeta$
+  getTarjetaEdit() : Observable<TarjetaCredito> {
+    return this.tarjeta$.asObservable();
+  }
+
+
 }

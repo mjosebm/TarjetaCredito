@@ -1,15 +1,15 @@
-<div class="card">
+<div class="card mt-3">
     <div class="card-body">
         <h5 class="titulo">LISTAR TARJETA</h5>
         <table class="table">
             <tbody>
-                <tr>
-                    <td>Titular</td>
-                    <td>Numero Tarjeta</td>
-                    <td>Fecha de Expiracion</td>
+                <tr *ngFor = "let tarjeta of listTarjetas">
+                    <td>{{ tarjeta.titular }}</td>
+                    <td>{{ tarjeta.numeroTarjeta }}</td>
+                    <td>{{ tarjeta.fechaExpiracion }}</td>
                     <td>
-                        <i class="fas fa-edit text-info"></i>
-                        <i class="fas fa-trash-alt text-danger"></i>
+                        <i (click) = "editarTarjeta(tarjeta)" class="fas fa-edit text-info"></i>
+                        <i (click) = "eliminarTarjeta(tarjeta.id)" class="fas fa-trash-alt text-danger"></i>
                     </td>
                 </tr>
             </tbody>

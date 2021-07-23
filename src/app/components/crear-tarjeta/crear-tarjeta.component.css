@@ -5,3 +5,15 @@
 .red-icon{
     color: #dc3545;
 }
+
+
+/* SPINNER */
+.custum-spinner{
+    color:#74bd9d;   
+}
+
+.spinner-border {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-right: 15px;
+}
